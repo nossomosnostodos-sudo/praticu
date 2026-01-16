@@ -1,8 +1,9 @@
+# praticu
+
+
 import tkinter as tk
 from tkinter import messagebox
 import sqlite3
-from PIL import Image, ImageTk
-
 
 # ================= BANCO DE DADOS =================
 
@@ -29,63 +30,38 @@ criar_tabela()
 def abrir_app(nome_usuario):
     app = tk.Tk()
     app.title("Praticu")
-    app.geometry("1280x720")
+    app.geometry("360x520")
     app.resizable(False, False)
     app.configure(bg="#f2f2f2")
 
     # Topo
+    topo = tk.Frame(app, bg="#2c3e50", height=60)
+    topo.pack(fill="x")
 
-    topo = tk.Frame(app, bg="#C5C5C5", height=100)
-    topo.grid(row=0, column=0, sticky="ew")
-    topo.grid_columnconfigure(0, weight=1)
-    topo.grid_columnconfigure(1, weight=1)
-
-    #Praticu
-
-    imagem_pu = Image.open("/home/aluno/Documentos/Praticu.jpeg")
-    imagem_pu = imagem_pu.resize((260, 50))
-    imagem_tk = ImageTk.PhotoImage(imagem_pu)
-
-    label_img = tk.Label(topo, image=imagem_tk)
-    label_img.image = imagem_tk  # evita a imagem sumir
-    label_img.grid(row=0, column=0, sticky="w",padx=1,pady=0)
-
-    #Perfil
-    def perfil():
-        print("")
-
-    imagem = Image.open("/home/aluno/Documentos/perfil1.jpeg")
-    imagem = imagem.resize((50, 50))
-    imagem_tk = ImageTk.PhotoImage(imagem)
-
-    botao_pf = tk.Button(
-    topo,
-    image=imagem_tk,
-    command=perfil,
-    bd=0,
-    bg="#C5C5C5",
-    activebackground="#C5C5C5"
-    )
-
-    botao_pf.image = imagem_tk  # evita a imagem sumir
-    botao_pf.grid(row=0, column=1, sticky="e", padx=10, pady=10)
-
+    tk.Label(
+        topo,
+        text="Praticu",
+        bg="#2c3e50",
+        fg="white",
+        font=("Arial", 16, "bold")
+    ).pack(pady=15)
 
     # Conteúdo
     conteudo = tk.Frame(app, bg="#f2f2f2")
-    conteudo.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
-    
-    for i in range(4):
-       conteudo.grid_columnconfigure(i, weight=1)
+    conteudo.pack(expand=True)
 
     tk.Label(
         conteudo,
         text=f"Bem-vindo, {nome_usuario}!",
         bg="#f2f2f2",
         font=("Arial", 14)
-    ).grid(row=0, column=2, columnspan=4, pady=10, sticky="n")
+    ).pack(pady=30)
 
-    #Treino
+    def opcao1():
+        messagebox.showinfo("Opção 1", "Você clicou na opção 1")
+
+    def opcao2():
+        messagebox.showinfo("Opção 2", "Você clicou na opção 2")
 
     tk.Button(
     conteudo, text="Treinos",
@@ -93,19 +69,15 @@ def abrir_app(nome_usuario):
     bg="#1d567c", fg="white",
     font=("Arial", 12),
     command=abrir_treinos
-    ).grid(row=2, column=2,columnspan=3, padx=10, pady=10)
-
-    #Matricula
+    ).pack(pady=10)
 
     tk.Button(
-    conteudo, text="Planos de Matrícula",
-    width=20, height=2,
-    bg="#8e44ad", fg="white",
-    font=("Arial", 12),
-    command=abrir_planos
-    ).grid(row=3, column=2,columnspan=3, padx=10, pady=10)
-
-    #Sair
+        conteudo, text="Matricula",
+        width=20, height=2,
+        bg="#1d567c", fg="white",
+        font=("Arial", 12),
+        command=opcao2
+    ).pack(pady=10)
 
     tk.Button(
         conteudo, text="Sair",
@@ -113,8 +85,7 @@ def abrir_app(nome_usuario):
         bg="#e74c3c", fg="white",
         font=("Arial", 12),
         command=app.destroy
-    ).grid(row=4, column=2,columnspan=3, padx=10, pady=10)
-
+    ).pack(pady=30)
 
     app.mainloop()
 
@@ -240,80 +211,5 @@ def abrir_treinos():
 
     tk.Button(tela, text="Ver treino", width=20, command=mostrar_treino).pack(pady=5)
 
-# ================= TELA PLANOS =================
-
-planos_matricula = [
-    {
-        "nome": "Básico",
-        "duracao": "1 mês",
-        "preco": "R$ 99",
-        "beneficios": ["Acesso à academia"]
-    },
-    {
-        "nome": "Padrão",
-        "duracao": "3 meses",
-        "preco": "R$ 270",
-        "beneficios": ["Acesso à academia", "Treinos guiados"]
-    },
-    {
-        "nome": "Premium",
-        "duracao": "6 meses",
-        "preco": "R$ 480",
-        "beneficios": ["Acesso à academia", "Treinos guiados", "Avaliação física"]
-    },
-    {
-        "nome": "VIP",
-        "duracao": "12 meses",
-        "preco": "R$ 900",
-        "beneficios": ["Todos os benefícios anteriores", "Personal trainer 2x por semana"]
-    }
-]
-
-def abrir_planos():
-    tela = tk.Toplevel()
-    tela.title("Planos de Matrícula")
-    tela.geometry("450x450")
-    tela.resizable(False, False)
-
-    tk.Label(tela, text="Escolha um plano", font=("Arial", 14, "bold")).pack(pady=10)
-
-    lista_planos = tk.Listbox(tela, width=50, height=6)
-    lista_planos.pack(pady=10)
-
-    for plano in planos_matricula:
-        lista_planos.insert(tk.END, plano["nome"])
-
-    texto = tk.Text(tela, width=50, height=10)
-    texto.pack(pady=10)
-
-    def mostrar_plano():
-        if not lista_planos.curselection():
-            messagebox.showwarning("Aviso", "Selecione um plano")
-            return
-
-        selecionado = lista_planos.get(lista_planos.curselection())
-        for plano in planos_matricula:
-            if plano["nome"] == selecionado:
-                beneficios = "\n- ".join(plano["beneficios"])
-                texto.delete("1.0", tk.END)
-                texto.insert(tk.END,
-                    f"Plano: {plano['nome']}\n"
-                    f"Duração: {plano['duracao']}\n"
-                    f"Preço: {plano['preco']}\n"
-                    f"Benefícios:\n- {beneficios}"
-                )
-                break
-
-    def escolher_plano():
-        if not lista_planos.curselection():
-            messagebox.showwarning("Aviso", "Selecione um plano")
-            return
-        selecionado = lista_planos.get(lista_planos.curselection())
-        messagebox.showinfo("Plano escolhido", f"Você escolheu o plano: {selecionado}")
-
-    tk.Button(tela, text="Ver plano", width=20, command=mostrar_plano).pack(pady=5)
-    tk.Button(tela, text="Escolher plano", width=20, bg="#2ecc71", fg="white", command=escolher_plano).pack(pady=5)
-    tk.Button(tela, text="Voltar", width=20, bg="#e74c3c", fg="white", command=tela.destroy).pack(pady=10)
-
-
 janela.mainloop()
+
