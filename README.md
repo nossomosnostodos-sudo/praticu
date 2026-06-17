@@ -1,8 +1,110 @@
-O presente documento tem como objetivo apresentar o modelo de um aplicativo denominado “Praticu Fitness”, que consiste em uma plataforma destinada à administração de treinos e planos de assinatura por meio do uso da tecnologia. Neste documento, são apresentadas as relações e interfaces do sistema, fundamentadas em questionários e observações realizadas pela equipe de desenvolvimento, visando atender às exigências e demandas do cliente.
-Inicialmente, são expostas informações propostas pela equipe, incluindo o levantamento de requisitos funcionais e não funcionais, o planejamento do sistema e a elaboração de diagramas, os quais têm como finalidade explicar a interface e o funcionamento do aplicativo.
-O sistema proposto para a academia “Praticu Fitness” tem como objetivo geral auxiliar no gerenciamento de matrículas e no acompanhamento dos alunos, proporcionando maior controle administrativo e uma melhor experiência aos usuários. A plataforma permitirá que os alunos acessem suas informações pessoais e consultem seus treinos.
-O usuário poderá realizar o login no sistema ao acessar a plataforma, utilizando autenticação por e-mail e senha, ou outros métodos disponíveis, conforme aplicável. Caso seja o primeiro acesso, o aluno deverá efetuar seu cadastro no sistema.
-O sistema deverá armazenar o histórico de matrículas e dos treinos realizados, possibilitando o acompanhamento contínuo do desempenho e da frequência dos alunos. Essas informações poderão ser acessadas tanto pelos usuários quanto pelos administradores, respeitando os níveis de permissão previamente definidos.
-A implementação do sistema proporcionará aos gestores da “Praticu Fitness” um controle mais eficaz sobre os dados dos alunos, permitindo uma análise mais precisa das preferências, do desempenho e da adesão aos planos oferecidos. Dessa forma, será possível aprimorar os serviços prestados, aumentar a satisfação dos clientes e otimizar o gerenciamento das atividades e dos processos administrativos da academia.
+# 🏋️ Praticu Fitness
+
+## 📖 Sobre o Projeto
+
+O **Praticu Fitness** é uma plataforma desenvolvida para auxiliar academias no gerenciamento de alunos, matrículas, planos de assinatura e treinos. O sistema foi projetado para centralizar informações administrativas e oferecer uma experiência mais prática e eficiente tanto para os gestores quanto para os alunos.
+
+A proposta do projeto surgiu da necessidade de modernizar processos que muitas vezes são realizados manualmente, reduzindo falhas no gerenciamento de dados e facilitando o acompanhamento das atividades dos usuários.
+
+---
+
+## 🎯 Objetivo
+
+O principal objetivo do Praticu Fitness é proporcionar uma solução tecnológica para o gerenciamento de academias, permitindo:
+
+* Controle de matrículas e planos de assinatura;
+* Gerenciamento de alunos e treinos;
+* Consulta de informações pessoais pelos usuários;
+* Acompanhamento do histórico de treinos;
+* Organização e otimização dos processos administrativos.
+
+---
+
+## 🚀 Funcionalidades
+
+### Área do Aluno
+
+* Cadastro de usuário;
+* Login e autenticação;
+* Consulta de treinos;
+* Visualização do histórico de atividades;
+* Edição de perfil.
+
+### Área Administrativa
+
+* Cadastro e gerenciamento de alunos;
+* Gerenciamento de planos de assinatura;
+* Cadastro, edição e exclusão de treinos;
+* Consulta de informações dos alunos;
+* Controle de matrículas.
+
+---
+
+## 📋 Requisitos Funcionais
+
+* Permitir o cadastro de alunos no sistema;
+* Realizar autenticação por e-mail e senha;
+* Gerenciar matrículas e planos de assinatura;
+* Consultar treinos cadastrados;
+* Armazenar o histórico de treinos realizados;
+* Atualizar dados cadastrais dos usuários;
+* Gerar relatórios administrativos.
+
+---
+
+## ⚙️ Requisitos Não Funcionais
+
+* Interface intuitiva e de fácil utilização;
+* Segurança no armazenamento dos dados;
+* Disponibilidade contínua do sistema;
+* Compatibilidade com dispositivos móveis e computadores;
+* Controle de acesso baseado em permissões;
+* Integridade e confiabilidade das informações armazenadas.
+
+---
+
+## 🏗️ Modelagem do Sistema
+
+O projeto foi desenvolvido utilizando conceitos de Engenharia de Software e UML, incluindo:
+
+* Diagrama de Casos de Uso;
+* Diagrama de Classes;
+* Levantamento de Requisitos Funcionais e Não Funcionais;
+* Prototipação de Interfaces.
+
+---
+
+## 👥 Público-Alvo
+
+O sistema é destinado a:
+
+* Gestores de academias;
+* Funcionários administrativos;
+* Alunos que desejam acompanhar seus treinos e informações pessoais.
+
+---
+
+## 📈 Benefícios
+
+Com a implementação do Praticu Fitness, a academia poderá:
+
+* Melhorar o controle administrativo;
+* Acompanhar o desempenho dos alunos;
+* Facilitar o acesso às informações;
+* Reduzir processos manuais;
+* Aumentar a satisfação dos clientes.
+
+---
+
+## 👨‍💻 Equipe de Desenvolvimento
+
+Projeto desenvolvido para fins acadêmicos, aplicando conceitos de análise, modelagem e desenvolvimento de sistemas.
+
+---
+
+## 📄 Licença
+
+Este projeto foi desenvolvido para fins educacionais e acadêmicos.
+
 
 
