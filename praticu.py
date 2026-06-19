@@ -33,7 +33,6 @@ entry_senha.place(x=270, y=270, width=200, height=25)
 
 btn_entrar = tk.Button(janela, text="Entrar", width=10)
 btn_entrar.place(x=270, y=320)
-
 btn_cadastrar = tk.Button(janela, text="Cadastrar", width=10)
 btn_cadastrar.place(x=378, y=320)
 
@@ -53,7 +52,6 @@ def abrir_app(nome_usuario, user_id):
     except Exception as e:
         print("Erro ao carregar imagem app:", e)
 
-    # ---- BOTÕES E LABELS LIVRES ----
     lbl_bemvindo = tk.Label(app, text=f"Bem-vindo, {nome_usuario}!", bg="#ffffff")
     lbl_bemvindo.place(x=350, y=230)
 
@@ -63,28 +61,124 @@ def abrir_app(nome_usuario, user_id):
     btn_sair = tk.Button(app, text="Sair", width=20, height=2, command=app.destroy)
     btn_sair.place(x=310, y=370)
 
-    #PERFIL
+    # ===== PERFIL =====
+    def abrir_perfil():
+        tela = tk.Toplevel()
+        tela.title("Perfil")
+        tela.geometry("400x300")
+        tela.resizable(False, False)
 
-    def perfil():
-        print("")
+        tk.Label(tela, text="Meu Perfil", font=("Arial", 14, "bold")).pack(pady=10)
 
+        tk.Label(tela, text="Nome de usuário").pack()
+        entry_nome = tk.Entry(tela, width=30)
+        entry_nome.pack(pady=5)
+
+        tk.Label(tela, text="Nova senha").pack()
+        entry_senha = tk.Entry(tela, width=30, show="*")
+        entry_senha.pack(pady=5)
+
+        tk.Label(tela, text="Confirmar senha").pack()
+        entry_confirmar = tk.Entry(tela, width=30, show="*")
+        entry_confirmar.pack(pady=5)
+
+        conn = conectar()
+        cursor = conn.cursor()
+        cursor.execute("SELECT usuario FROM usuarios WHERE id=?", (user_id,))
+        dados = cursor.fetchone()
+        conn.close()
+        entry_nome.insert(0, dados[0])
+
+        def salvar():
+            novo_nome = entry_nome.get()
+            nova_senha = entry_senha.get()
+            confirmar = entry_confirmar.get()
+
+            if not novo_nome:
+                messagebox.showwarning("Aviso", "Nome não pode ser vazio")
+                return
+            if nova_senha and nova_senha != confirmar:
+                messagebox.showerror("Erro", "As senhas não coincidem")
+                return
+
+            conn = conectar()
+            cursor = conn.cursor()
+            if nova_senha:
+                cursor.execute("UPDATE usuarios SET usuario=?, senha=? WHERE id=?", (novo_nome, nova_senha, user_id))
+            else:
+                cursor.execute("UPDATE usuarios SET usuario=? WHERE id=?", (novo_nome, user_id))
+            conn.commit()
+            conn.close()
+            messagebox.showinfo("Sucesso", "Perfil atualizado!")
+            tela.destroy()
+
+        tk.Button(tela, text="Salvar", width=15, command=salvar).pack(pady=15)
+
+    # ===== BOTÃO PERFIL =====
     imagem = Image.open("perfil1.jpeg")
     imagem = imagem.resize((70, 70))
     imagem_tk = ImageTk.PhotoImage(imagem)
 
-    botao_pf = tk.Button(
+    botao_pf = botao_pf = tk.Button(
     app,
     image=imagem_tk,
-    command=perfil,
+    command=abrir_perfil,
     bd=0,
-    bg="#C5C5C5",
-    activebackground="#C5C5C5"
+    bg="#800080",
+    activebackground="#C5C5C5",
+    highlightthickness=3,
     )
-
-    botao_pf.image = imagem_tk  # evita a imagem sumir
+    botao_pf.image = imagem_tk
     botao_pf.place(x=700, y=30)
+    botao_pf.command = abrir_perfil
 
+def abrir_cadastro():
+    tela = tk.Toplevel(janela)
+    tela.title("Cadastro")
+    tela.geometry("400x300")
+    tela.resizable(False, False)
 
+    tk.Label(tela, text="Criar Conta", font=("Arial", 14, "bold")).pack(pady=10)
+
+    tk.Label(tela, text="Nome de usuário").pack()
+    entry_novo_usuario = tk.Entry(tela, width=30)
+    entry_novo_usuario.pack(pady=5)
+
+    tk.Label(tela, text="Senha").pack()
+    entry_nova_senha = tk.Entry(tela, width=30, show="*")
+    entry_nova_senha.pack(pady=5)
+
+    tk.Label(tela, text="Confirmar senha").pack()
+    entry_confirmar_senha = tk.Entry(tela, width=30, show="*")
+    entry_confirmar_senha.pack(pady=5)
+
+    def cadastrar():
+        usuario = entry_novo_usuario.get()
+        senha = entry_nova_senha.get()
+        confirmar = entry_confirmar_senha.get()
+
+        if not usuario or not senha or not confirmar:
+            messagebox.showwarning("Aviso", "Preencha todos os campos")
+            return
+        if senha != confirmar:
+            messagebox.showerror("Erro", "As senhas não coincidem")
+            return
+
+        conn = conectar()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("INSERT INTO usuarios (usuario, senha) VALUES (?, ?)", (usuario, senha))
+            conn.commit()
+            messagebox.showinfo("Sucesso", "Conta criada com sucesso!")
+            tela.destroy()
+        except sqlite3.IntegrityError:
+            messagebox.showerror("Erro", "Esse nome de usuário já existe")
+        finally:
+            conn.close()
+
+    tk.Button(tela, text="Cadastrar", width=15, command=cadastrar).pack(pady=15)
+
+btn_cadastrar.config(command=abrir_cadastro)
 
 def fazer_login():
     usuario = entry_usuario.get()
@@ -122,8 +216,6 @@ def abrir_treinos(usuario_id):
     texto.place(x=20, y=250)
     # criar treino e mostrar treino...
     # você pode reposicionar os widgets manualmente
-
-btn_cadastrar.config(command=lambda: messagebox.showinfo("Cadastro", "Você vai criar a tela de cadastro aqui"))
 
 def abrir_treinos(usuario_id):
     tela = tk.Toplevel()
